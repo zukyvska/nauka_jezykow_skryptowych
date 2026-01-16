@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Scripting - Python + JavaScript</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showTab('home')">
+                <i class="fas fa-code text-white"></i>
+                <strong class="ms-2 text-white">Learn Scripting</strong>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTab('home')">
+                            <i class="fas fa-home text-white"></i> Strona główna
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-graduation-cap text-white"></i> Nauka
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="showTab('python')">
+                                <i class="fab fa-python text-success"></i> Python
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showTab('javascript')">
+                                <i class="fab fa-js-square text-warning"></i> JavaScript
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="showTab('quiz')">
+                            <i class="fas fa-question-circle text-white"></i> Quizy
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" onclick="showTab('dashboard')">
+                            <i class="fas fa-chart-bar text-white"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#" data-bs-toggle="modal" data-bs-target="#rankingModal">
+                            <i class="fas fa-trophy text-white"></i> Ranking
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item me-3">
+                        <div class="form-check form-switch mt-2">
+                            <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                            <label class="form-check-label text-white" for="darkModeToggle">
+                                <i class="fas fa-moon text-white"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="authButtons">
+                        <button class="btn btn-outline-light btn-sm me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt text-white"></i> Zaloguj
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="showRegisterFormInModal()">
+                            <i class="fas fa-user-plus text-white"></i> Rejestracja
+                        </button>
+                    </div>
+                    
+                    <div id="userProfile" style="display: none;">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle text-white"></i> <span id="userNameDisplay" class="text-white">Użytkownik</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" onclick="showTab('dashboard')">
+                                    <i class="fas fa-chart-bar"></i> Mój dashboard
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="showUserProfile()">
+                                    <i class="fas fa-user-cog"></i> Ustawienia
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i> Wyloguj
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Zaloguj się</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">Nazwa użytkownika</label>
+                            <input type="text" class="form-control" id="loginUsername" placeholder="Wpisz nazwę">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hasło</label>
+                            <input type="password" class="form-control" id="loginPassword" placeholder="Wpisz hasło">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Zapamiętaj mnie</label>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="login()">Zaloguj</button>
+                        <div class="text-center mt-3">
+                            <a href="#" onclick="showRegisterForm()">Nie masz konta? Zarejestruj się</a>
+                        </div>
+                    </div>
+                    
+                    <div id="registerForm" style="display: none;">
+                        <div class="mb-3">
+                            <label class="form-label">Nazwa użytkownika</label>
+                            <input type="text" class="form-control" id="registerUsername" placeholder="Wybierz nazwę">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="registerEmail" placeholder="twój@email.pl">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hasło</label>
+                            <input type="password" class="form-control" id="registerPassword" placeholder="Minimum 6 znaków">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Powtórz hasło</label>
+                            <input type="password" class="form-control" id="registerPassword2" placeholder="Powtórz hasło">
+                        </div>
+                        <button class="btn btn-success w-100" onclick="register()">Zarejestruj</button>
+                        <div class="text-center mt-3">
+                            <a href="#" onclick="showLoginForm()">Masz już konto? Zaloguj się</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rankingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-trophy text-warning"></i> Ranking użytkowników</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="rankingContent">
+                        <p>Ładowanie rankingu...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="serverStatus" class="status-indicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText" class="text-white">Łączenie...</span>
+    </div>
+
+    <div class="container mt-4">
+        
+        <div id="home-tab" class="tab-content">
+            <div class="text-center mb-5">
+                <h1 class="display-4">Naucz się programowania</h1>
+                <p class="lead">Interaktywny kurs Python i JavaScript z backendem w Flask</p>
+            </div>
+
+            <div class="row mt-4" id="liveStats">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <div class="stat-icon">
+                                <i class="fas fa-book text-white"></i>
+                            </div>
+                            <h3 class="stat-number text-white" id="totalPythonLessons">0</h3>
+                            <p class="stat-label text-white">Lekcji Pythona</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <div class="stat-icon">
+                                <i class="fas fa-book text-white"></i>
+                            </div>
+                            <h3 class="stat-number text-white" id="totalJSLessons">0</h3>
+                            <p class="stat-label text-white">Lekcji JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <div class="stat-icon">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <h3 class="stat-number text-white" id="totalUsers">0</h3>
+                            <p class="stat-label text-white">Zarejestrowani</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line text-white"></i>
+                            </div>
+                            <h3 class="stat-number text-white" id="activeUsers">0</h3>
+                            <p class="stat-label text-white">Aktywni dziś</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 python-card hover-card">
+                        <div class="card-header python-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0 text-white"><i class="fab fa-python text-white"></i> Python</h4>
+                                <span class="badge bg-light">
+                                    <i class="fas fa-fire text-dark"></i> Popularny
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Język wszechstronny</strong> - idealny na początek przygody z programowaniem.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> Prosta i czytelna składnia</li>
+                                <li><i class="fas fa-check text-success"></i> Wielkie możliwości: web, data science, AI</li>
+                                <li><i class="fas fa-check text-success"></i> Ogromna społeczność</li>
+                            </ul>
+                            
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Twój postęp:</span>
+                                    <span id="pythonProgressPercent">0%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div id="pythonProgressBarHome" class="progress-bar python-bg" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <button class="btn btn-python" onclick="showTab('python')">
+                                    <i class="fas fa-play text-white"></i> Rozpocznij naukę
+                                </button>
+                                <button class="btn btn-outline-python ms-2" onclick="showTab('quiz'); loadQuiz('python')">
+                                    <i class="fas fa-brain text-dark"></i> Test wiedzy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 js-card hover-card">
+                        <div class="card-header js-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0"><i class="fab fa-js-square text-dark"></i> JavaScript</h4>
+                                <span class="badge bg-light">
+                                    <i class="fas fa-globe text-dark"></i> Web
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Język webu</strong> - niezbędny dla każdego web developera.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-warning"></i> Działa w każdej przeglądarce</li>
+                                <li><i class="fas fa-check text-warning"></i> Frontend i backend (Node.js)</li>
+                                <li><i class="fas fa-check text-warning"></i> Asynchroniczne programowanie</li>
+                            </ul>
+                            
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Twój postęp:</span>
+                                    <span id="jsProgressPercent">0%</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div id="jsProgressBarHome" class="progress-bar js-bg" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <button class="btn btn-js" onclick="showTab('javascript')">
+                                    <i class="fas fa-play text-dark"></i> Rozpocznij naukę
+                                </button>
+                                <button class="btn btn-outline-js ms-2" onclick="showTab('quiz'); loadQuiz('javascript')">
+                                    <i class="fas fa-brain text-dark"></i> Test wiedzy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 text-center">
+                <h4>System nauczania</h4>
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="display-6 mb-3">
+                                    <i class="fas fa-laptop-code text-primary"></i>
+                                </div>
+                                <h5>Interaktywne lekcje</h5>
+                                <p>Ucz się przez praktykę z przykładami kodu</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="display-6 mb-3">
+                                    <i class="fas fa-check-circle text-success"></i>
+                                </div>
+                                <h5>Ćwiczenia z oceną</h5>
+                                <p>Automatyczna weryfikacja odpowiedzi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <div class="display-6 mb-3">
+                                    <i class="fas fa-trophy text-warning"></i>
+                                </div>
+                                <h5>System postępów</h5>
+                                <p>Śledź swoje osiągnięcia i zdobywaj odznaki</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="python-tab" class="tab-content" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fab fa-python text-success"></i> Python - Lekcje</h2>
+                <button class="btn btn-outline-secondary" onclick="showTab('home')">
+                    <i class="fas fa-arrow-left"></i> Wróć
+                </button>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header python-header">
+                            <h5 class="text-white"><i class="fas fa-list text-white"></i> Lista lekcji</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="pythonLessonsList" class="list-group">
+                            </div>
+                            <div class="mt-3">
+                                <h6><i class="fas fa-chart-line"></i> Twój postęp:</h6>
+                                <div class="progress-bar-container">
+                                    <div id="pythonProgress" class="progress-fill" style="width: 0%">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div id="pythonLessonContent" class="card">
+                        <div class="card-body text-center">
+                            <div class="display-6 mb-3">
+                                <i class="fab fa-python text-success"></i>
+                            </div>
+                            <h5>Wybierz lekcję z listy po lewej</h5>
+                            <p>Lekcje są pobierane z backendu Pythona</p>
+                        </div>
+                    </div>
+                    
+                    <div id="pythonExercise" class="card mt-3" style="display: none;">
+                        <div class="card-header python-header">
+                            <h5 class="text-white"><i class="fas fa-pencil-alt text-white"></i> Ćwiczenie</h5>
+                        </div>
+                        <div class="card-body">
+                            <p id="exerciseQuestion"></p>
+                            <pre><code id="exerciseTemplate" class="language-python"></code></pre>
+                            <div class="input-group mb-3">
+                                <input type="text" id="pythonAnswer" class="form-control" placeholder="Twoja odpowiedź...">
+                                <button class="btn btn-success" onclick="checkPythonAnswer()">
+                                    <i class="fas fa-check text-white"></i> Sprawdź
+                                </button>
+                            </div>
+                            <div id="pythonExerciseResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="javascript-tab" class="tab-content" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fab fa-js-square text-warning"></i> JavaScript - Lekcje</h2>
+                <button class="btn btn-outline-secondary" onclick="showTab('home')">
+                    <i class="fas fa-arrow-left"></i> Wróć
+                </button>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header js-header">
+                            <h5><i class="fas fa-list text-dark"></i> Lista lekcji</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="jsLessonsList" class="list-group">
+                            </div>
+                            <div class="mt-3">
+                                <h6><i class="fas fa-chart-line"></i> Twój postęp:</h6>
+                                <div class="progress-bar-container">
+                                    <div id="jsProgress" class="progress-fill js" style="width: 0%">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8">
+                    <div id="jsLessonContent" class="card">
+                        <div class="card-body text-center">
+                            <div class="display-6 mb-3">
+                                <i class="fab fa-js-square text-warning"></i>
+                            </div>
+                            <h5>Wybierz lekcję z listy po lewej</h5>
+                            <p>Lekcje są pobierane z backendu</p>
+                        </div>
+                    </div>
+                    
+                    <div id="jsExercise" class="card mt-3" style="display: none;">
+                        <div class="card-header js-header">
+                            <h5><i class="fas fa-pencil-alt text-dark"></i> Ćwiczenie</h5>
+                        </div>
+                        <div class="card-body">
+                            <p id="jsExerciseQuestion"></p>
+                            <pre><code id="jsExerciseTemplate" class="language-javascript"></code></pre>
+                            <div class="input-group mb-3">
+                                <input type="text" id="jsAnswer" class="form-control" placeholder="Twoja odpowiedź...">
+                                <button class="btn btn-js" onclick="checkJSAnswer()">
+                                    <i class="fas fa-check text-dark"></i> Sprawdź
+                                </button>
+                            </div>
+                            <div id="jsExerciseResult"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-tab" class="tab-content" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-question-circle"></i> Quizy</h2>
+                <button class="btn btn-outline-secondary" onclick="showTab('home')">
+                    <i class="fas fa-arrow-left"></i> Wróć
+                </button>
+            </div>
+            
+            <div class="text-center mb-4">
+                <h4>Wybierz język:</h4>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-python" onclick="loadQuiz('python')">
+                        <i class="fab fa-python text-white"></i> Python Quiz
+                    </button>
+                    <button class="btn btn-js" onclick="loadQuiz('javascript')">
+                        <i class="fab fa-js-square text-dark"></i> JavaScript Quiz
+                    </button>
+                </div>
+            </div>
+            
+            <div id="quizContainer">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="display-6 mb-3">
+                            <i class="fas fa-brain text-info"></i>
+                        </div>
+                        <h5>Wybierz język aby rozpocząć quiz</h5>
+                        <p>Każdy quiz zawiera pytania wielokrotnego wyboru</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <button id="checkQuizBtn" class="btn btn-primary btn-lg" onclick="checkQuiz()" style="display: none;">
+                    <i class="fas fa-paper-plane text-white"></i> Sprawdź odpowiedzi
+                </button>
+                <div id="quizResult" class="mt-3"></div>
+            </div>
+        </div>
+
+        <div id="dashboard-tab" class="tab-content" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-chart-bar"></i> Dashboard - Twoje postępy</h2>
+                <button class="btn btn-outline-secondary" onclick="showTab('home')">
+                    <i class="fas fa-arrow-left"></i> Wróć
+                </button>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header python-header">
+                            <h5 class="text-white"><i class="fab fa-python text-white"></i> Python</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6><i class="fas fa-check-circle"></i> Ukończone lekcje:</h6>
+                            <div id="pythonCompleted" class="mb-3"></div>
+                            
+                            <h6><i class="fas fa-tasks"></i> Postęp:</h6>
+                            <div class="progress-bar-container mb-3">
+                                <div id="dashboardPythonProgress" class="progress-fill" style="width: 0%">0%</div>
+                            </div>
+                            
+                            <h6><i class="fas fa-star"></i> Wyniki quizów:</h6>
+                            <div id="pythonQuizResults"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header js-header">
+                            <h5><i class="fab fa-js-square text-dark"></i> JavaScript</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6><i class="fas fa-check-circle"></i> Ukończone lekcje:</h6>
+                            <div id="jsCompleted" class="mb-3"></div>
+                            
+                            <h6><i class="fas fa-tasks"></i> Postęp:</h6>
+                            <div class="progress-bar-container mb-3">
+                                <div id="dashboardJSProgress" class="progress-fill js" style="width: 0%">0%</div>
+                            </div>
+                            
+                            <h6><i class="fas fa-star"></i> Wyniki quizów:</h6>
+                            <div id="jsQuizResults"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line"></i> Statystyki ogólne</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <h3 class="stats-number" id="totalLessons">0</h3>
+                            <p>Ukończonych lekcji</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="stats-number" id="totalQuizzes">0</h3>
+                            <p>Rozwiązanych quizów</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="stats-number" id="avgScore">0%</h3>
+                            <p>Średni wynik</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <button class="btn btn-danger" onclick="resetProgress()">
+                    <i class="fas fa-trash-alt text-white"></i> Zresetuj postępy
+                </button>
+                <button class="btn btn-success ms-2" onclick="exportData()">
+                    <i class="fas fa-download text-white"></i> Eksportuj dane
+                </button>
+                <button class="btn btn-info ms-2" onclick="importData()">
+                    <i class="fas fa-upload text-white"></i> Importuj dane
+                </button>
+                <input type="file" id="importFile" style="display: none;" accept=".json">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            checkServerStatus();
+            initDarkMode();
+            loadPythonLessons();
+            loadJSLessons();
+            updateLiveStats();
+            updateDashboard();
+            
+            document.getElementById('rankingModal').addEventListener('shown.bs.modal', function() {
+                loadRanking();
+            });
+        });
+    </script>
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-1">
+                        <i class="fas fa-user-graduate"></i> Projekt zaliczeniowy - Aplikacja do nauki jezyków programowania
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-user"></i> Autor: Weronika Żukowska 82574
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-book"></i> Przedmiot: Programowanie w językach skryptowych
+                    </p>
+                    <p class="mb-0">
+                        <i class="fas fa-calendar-alt"></i> Rok akademicki: 2025/2026
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

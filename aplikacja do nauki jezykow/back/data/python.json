@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Witaj w Pythonie",
+    "content": "Python to język programowania stworzony przez Guido van Rossuma. Jest prosty w nauce dzięki czytelnej składni.",
+    "code": "print('Hello, World!')",
+    "explanation": "Funkcja print() wypisuje tekst w konsoli.",
+    "exercise": {
+      "question": "Uzupełnij kod aby wypisał 'Cześć!'",
+      "template": "______('Cześć!')",
+      "answer": "print"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Zmienne",
+    "content": "Zmienne przechowują dane. W Pythonie nie deklarujesz typu.",
+    "code": "imie = 'Anna'\nwiek = 25\npi = 3.14\nucze_sie = True",
+    "explanation": "Możesz przechowywać tekst, liczby, wartości logiczne.",
+    "exercise": {
+      "question": "Stwórz zmienną 'kurs' z wartością 'Python'",
+      "template": "______ = 'Python'",
+      "answer": "kurs"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Listy",
+    "content": "Lista przechowuje wiele wartości w jednej zmiennej.",
+    "code": "owoce = ['jabłko', 'banan', 'pomarańcza']\nprint(owoce[0])  # jabłko",
+    "explanation": "Elementy listy są numerowane od 0.",
+    "exercise": {
+      "question": "Stwórz listę z liczbami 1, 2, 3",
+      "template": "liczby = [______, 2, 3]",
+      "answer": "1"
+    }
+  }
+]
