@@ -1,0 +1,42 @@
+{
+  "python": [
+    {
+      "id": 1,
+      "question": "Jak wypisać tekst?",
+      "options": ["print()", "console.log()", "echo()", "printf()"],
+      "correct": 0
+    },
+    {
+      "id": 2,
+      "question": "Który typ jest mutowalny?",
+      "options": ["tuple", "string", "list", "int"],
+      "correct": 2
+    },
+    {
+      "id": 3,
+      "question": "Jak zacząć pętlę for?",
+      "options": ["for i in range(5)", "for(i=0;i<5;i++)", "for i from 1 to 5", "foreach i in 5"],
+      "correct": 0
+    }
+  ],
+  "javascript": [
+    {
+      "id": 1,
+      "question": "Jak wypisać w konsoli?",
+      "options": ["print()", "console.log()", "alert.print()", "log()"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "Które słowo tworzy stałą?",
+      "options": ["var", "let", "const", "static"],
+      "correct": 2
+    },
+    {
+      "id": 3,
+      "question": "Co wypisze: console.log(typeof null)?",
+      "options": ["null", "undefined", "object", "string"],
+      "correct": 2
+    }
+  ]
+}

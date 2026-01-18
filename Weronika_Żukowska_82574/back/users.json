@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "username": "zukyvska",
+    "created": 1768586539.5606072,
+    "progress": {
+      "python": {
+        "lessons": [],
+        "quizzes": []
+      },
+      "javascript": {
+        "lessons": [],
+        "quizzes": []
+      }
+    }
+  }
+]
